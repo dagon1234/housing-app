@@ -13,7 +13,8 @@ import { HousingLocation } from "../housing-location";
   template: `
     <section>
       <form>
-        <input type="text" placeholder="Filter by city" #filter/>
+        <input type="text" placeholder="Filter by city" #filter (input)="filterResults(filter.value)"/>
+        <!-- ถ้าข้อมูลมากไม่ควรใช้  (input)="filterResults(filter.value) ควรใช้ button Search มากกว่า-->
         <button class="primary" type="button"
                 (click)="filterResults(filter.value)">Search</button>
       </form>
