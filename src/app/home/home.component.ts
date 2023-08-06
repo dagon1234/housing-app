@@ -24,6 +24,7 @@ import { HousingLocation } from "../housing-location";
       <app-housing-location
         *ngFor="let housingLocation of filteredLocationList"
         [housingLocation]="housingLocation"
+        (notify)="notifyFromChild($event)"
       ></app-housing-location>
     </section>
   `,
@@ -34,10 +35,10 @@ import { HousingLocation } from "../housing-location";
 export class HomeComponent {
   housingLocationList: HousingLocation[] = [];
   filteredLocationList: HousingLocation[] = [];
-  housingService: HousingService = inject(HousingService);
+  //housingService: HousingService = inject(HousingService);
 
 
-  constructor() {
+  constructor(private housingService: HousingService) {
     this.housingService.getAllHousingLocations()
       .then((housingLocationList: HousingLocation[]) => {
         this.housingLocationList = housingLocationList;
@@ -57,6 +58,10 @@ export class HomeComponent {
       (housingLocation) =>
         housingLocation?.city.toLowerCase().includes(text.toLowerCase())
     );
+  }
+
+  notifyFromChild(evt : any){
+    console.log('notify From Child ' + evt);
   }
 }
 

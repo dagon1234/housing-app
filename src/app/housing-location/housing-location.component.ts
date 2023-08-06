@@ -1,4 +1,4 @@
-import { Component, Input } from "@angular/core";
+import { Component, EventEmitter, Input, Output } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { HousingLocation } from '../housing-location';
 import { RouterLink, RouterOutlet } from "@angular/router";
@@ -19,6 +19,7 @@ import { RouterLink, RouterOutlet } from "@angular/router";
         {{ housingLocation.city }}, {{ housingLocation.state }}
       </p>
       <a [routerLink]="['/details', housingLocation.id]">Learn More</a>
+      <button (click)="test()">TEST</button>
     </section>
   `,
   styleUrls: ["./housing-location.component.css"],
@@ -26,5 +27,10 @@ import { RouterLink, RouterOutlet } from "@angular/router";
 
 export class HousingLocationComponent {
   @Input() housingLocation!: HousingLocation;//ออกสอบ
+  @Output() notify: EventEmitter<string> = new EventEmitter();
+
+  test(){
+    this.notify.emit(this.housingLocation.name);
+  }
 }
 
